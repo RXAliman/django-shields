@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="windows-1250">
+	<title>{% block title %}SHIELDS{% endblock %}</title>
+	<link rel="apple-touch-icon" sizes="180x180" href="{% static 'masterlist/apple-touch-icon.png' %}">
+	<link rel="icon" type="image/png" sizes="32x32" href="{% static 'masterlist/favicon-32x32.png' %}">
+	<link rel="icon" type="image/png" sizes="16x16" href="{% static 'masterlist/favicon-16x16.png' %}">
+	<link rel="manifest" href="{% static 'masterlist/site.webmanifest' %}">
+</head>
+<body>
+	<main>
+		{% if user.is_authenticated %}
+			<a href="{% url 'logout' %}"><button>Log Out</button></a><br>
+		{% endif %}
+		{% block content %}
+		{% endblock %}
+	</main>
+</body>
+</html>

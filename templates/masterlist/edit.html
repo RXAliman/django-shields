@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Edit{% endblock %}
+
+{% block content %}
+
+<form action="{% url 'submit_edit' person.person_id %}" method="POST">
+{% csrf_token %}
+	<h1>Edit Details</h1>
+	<label for="firstname">First Name:</label>
+		<input type="text" id="firstname" name="firstname" value="{{ person.person_firstname }}" required>
+	<br>
+	<label for="surname">Last Name:</label>
+		<input type="text" id="surname" name="surname" value="{{ person.person_surname }}" required>
+	<br>
+	<label for="middlename">Middle Name:</label>
+		<input type="text" id="middlename" name="middlename" value="{% if person.person_middlename != 'None' %}{{ person.person_middlename }}{% endif %}">
+	<br>
+	<label for="extension">Extension:</label>
+		<select id="extension" name="extension">
+			<option value="" {% if person.person_extension == '' %}{{ 'selected' }}{% endif %}></option>
+			<option value="Jr" {% if person.person_extension == 'Jr' %}{{ 'selected' }}{% endif %}>Jr</option>
+			<option value="Sr" {% if person.person_extension == 'Sr' %}{{ 'selected' }}{% endif %}>Sr</option>
+			<option value="I" {% if person.person_extension == 'I' %}{{ 'selected' }}{% endif %}>I</option>
+			<option value="II" {% if person.person_extension == 'II' %}{{ 'selected' }}{% endif %}>II</option>
+			<option value="III" {% if person.person_extension == 'III' %}{{ 'selected' }}{% endif %}>III</option>
+			<option value="IV" {% if person.person_extension == 'IV' %}{{ 'selected' }}{% endif %}>IV</option>
+			<option value="V" {% if person.person_extension == 'V' %}{{ 'selected' }}{% endif %}>V</option>
+			<option value="VI" {% if person.person_extension == 'VI' %}{{ 'selected' }}{% endif %}>VI</option>
+			<option value="VII" {% if person.person_extension == 'VII' %}{{ 'selected' }}{% endif %}>VII</option>
+			<option value="VIII" {% if person.person_extension == 'VIII' %}{{ 'selected' }}{% endif %}>VIII</option>
+			<option value="IX" {% if person.person_extension == 'IX' %}{{ 'selected' }}{% endif %}>IX</option>
+			<option value="X" {% if person.person_extension == 'X' %}{{ 'selected' }}{% endif %}>X</option>
+		</select>
+	<br>
+	<label for="street-no">Street Number:</label>
+		<input type="number" id="street-no" name="street-no" min="1" max="4" value="{{ person.person_street_no }}" required>
+	<br>
+	<label for="house-no">House Number:</label>
+		<input type="text" id="house-no" name="house-no" min="1" value="{% if person.person_house_no != 'None' %}{{ person.person_house_no }}{% endif %}">
+	<br>
+	<label for="status">Status:</label>
+	<select id="status" name="status">
+		<option value="Resident" {% if person.person_status == 'Resident' %}{{ 'selected' }}{% endif %}>Resident</option>
+		<option value="Pending" {% if person.person_status == 'Pending' %}{{ 'selected' }}{% endif %}>Pending</option>
+		<option value="Member" {% if person.person_status == 'Member' %}{{ 'selected' }}{% endif %}>Member</option>
+	</select>
+	<!-- Submit Button -->
+	<br>
+	<input type="submit" value="Apply Changes">
+</form>
+<button onclick="history.back()">Back</button>
+
+{% endblock %}

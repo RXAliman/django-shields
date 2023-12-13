@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<h2>Log In</h2>
+{% if form.errors %}
+	{% for error in form.errors.values %}
+		{{ error }}
+	{% endfor %}
+{% endif %}
+<form method="post">
+	{% csrf_token %}
+	<p>
+		<label for="id_username">Username:</label>
+		<input type="text" name="username" maxlength="150" id="id_username" autofocus required>
+	</p>
+	<p>
+		<label for="id_password">Password:</label>
+		<input type="password" name="password" id="id_password" required>
+		<label for="id_showpassword">Show Password</label>
+		<input type="checkbox" onclick="togglePassVisibility()" id="id_togglePassVisibility">
+	</p>
+	<button type="submit">Log In</button>
+</form>
+<script>
+	function togglePassVisibility()
+	{
+		var passField = document.getElementById("id_password");
+		passField.type = (document.getElementById("id_togglePassVisibility").checked ? "text" : "password");
+	}
+</script>
+{% endblock %}

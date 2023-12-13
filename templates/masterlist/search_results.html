@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Masterlist{% endblock %}
+
+{% block content %}
+
+<a href="{% url 'index' %}"><button>Menu</button></a>
+<form action="{% url 'search_results' %}" method="POST">
+{% csrf_token %}
+	<input type="search" name="search" value="{% if search_content %}{{ search_content }}{% endif %}" placeholder="Search" required>
+	<input type="submit" value="Search">
+	<select id="search-filter" name="search-filter">
+		<option value="by-name" {% if search_filter == 'by-name' %}{{ 'selected' }}{% endif %}>Name</option>
+		<option value="by-id" {% if search_filter == 'by-id' %}{{ 'selected' }}{% endif %}>SENA ID</option>
+		<option value="by-street-no" {% if search_filter == 'by-street-no' %}{{ 'selected' }}{% endif %}>Street Number</option>
+		<option value="by-house-no" {% if search_filter == 'by-house-no' %}{{ 'selected' }}{% endif %}>House Number</option>
+		<option value="by-status" {% if search_filter == 'by-status' %}{{ 'selected' }}{% endif %}>Status</option>
+	</select>
+</form>
+{% if search_results %}
+<table id="search_results_list">
+	<tr>
+		<th>SENA ID</th>
+		<th>Name</th>
+		<th>Street #</th>
+		<th>House #</th>
+		<th>Status</th>
+	</tr>
+	{% for person in search_results %}
+	<tr>
+		<td>
+			<a href="{% url 'details' person.person_id %}">{{ person.person_id }}</a>
+		</td>
+		<td>
+			{{ person.person_surname }},
+			{{ person.person_firstname }}
+			<!-- If person's extension is Jr or Sr, add period (.) -->
+			{% if person.person_extension == 'Jr' or person.person_extension == 'Sr' %}
+				{{ person.person_extension }}.
+			<!-- Else if person has extension other than Jr or Sr (for instance: II, III), display the way it is -->
+			{% elif person.person_extension %}
+				{{ person.person_extension }}
+			{% endif %}
+		</td>
+		<td>{{ person.person_street_no }}</td>
+		<td>
+			{% if person.person_house_no %}
+				{{ person.person_house_no }}
+			{% else %}
+				N/A
+			{% endif %}
+		</td>
+		<td>{{ person.person_status }}</td>
+	</tr>
+	{% endfor %}
+</table>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'masterlist/index.css' %}">
+
+<b>SHIELDS</b><br>
+SENA Homeowner's Information Extractor and Local Database System<br>
+Salamat Extension Neighborhood Association<br>
+<a href="{% url 'register' %}"><button>Register</button></a>
+<a href="{% url 'view_masterlist' %}"><button>View Masterlist</button></a>
+<a href="{% url 'view_history' %}"><button>View History</button></a>
+<form action="{% url 'search_results' %}" method="POST">
+{% csrf_token %}
+	<input type="search" name="search" placeholder="Search" required>
+	<input type="submit" value="Search">
+	<select id="search-filter" name="search-filter">
+		<option value="by-name">Name</option>
+		<option value="by-id">SENA ID</option>
+		<option value="by-street-no">Street Number</option>
+		<option value="by-house-no">House Number</option>
+		<option value="by-status">Status</option>
+	</select>
+</form>
+{% endblock %}

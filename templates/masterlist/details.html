@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Details{% endblock %}
+
+{% block content %}
+
+<h1>Details</h1>
+First Name:
+{{ person.person_firstname }}
+<br>
+Middle Name:
+{% if person.person_middlename %}
+	{{ person.person_middlename }}
+{% endif %}
+<br>
+Surname: 
+{{ person.person_surname }}
+<!-- If person's extension is Jr or Sr, add period (.) -->
+<br>
+Extension:
+{{ person.person_extension }}
+<br>
+<!-- Format: #23 2nd Street Salamat Extension -->
+Address:
+	{% if person.person_house_no %}
+		#{{ person.person_house_no }}
+	{% endif %}
+	{% if person.person_street_no == 1 %} 1<sup>st</sup> Street
+	{% elif person.person_street_no == 2 %} 2<sup>nd</sup> Street
+	{% elif person.person_street_no == 3 %} 3<sup>rd</sup> Street
+	{% elif person.person_street_no == 4 %} 4<sup>th</sup> Street
+	{% endif %}
+	Salamat Extension
+<br>
+SENA ID:
+{{ person.person_id }}
+<br>
+Status: {{ person.person_status }}
+<br>
+<a href="{% url 'view_masterlist' %}"><button>Back</button></a>
+<a href="{% url 'edit' person.person_id %}"><button>Edit</button></a>
+<button onclick="confirmDelete()">Delete</button>
+<br>
+<table id="history-table">
+	<thead>History</thead>
+	<tr>
+		<th>Timestamp</th>
+		<th>Short Description</th>
+		<th>History ID</th>
+	</tr>
+	{% for entry in person.history_set.all %}
+	<tr>
+		<td>{{ entry.history_timestamp }}</td>
+		<td>{{ entry.history_short_desc }}</td>
+		<td>{{ entry.history_id }}</td>
+	</tr>
+	{% endfor %}
+</table>
+<script>
+	function confirmDelete()
+	{
+		let ask = prompt("Enter Person's SENA ID to confirm deletion");
+		if (ask == "{{ person.person_id }}")
+			window.location.replace("{% url 'delete' person.person_id %}");
+		else if (ask != null)
+			alert("Deletion failed");
+	}
+</script>
+
+{% endblock %}
