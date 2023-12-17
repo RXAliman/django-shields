@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Generate Certificate</h1>
+For: {{ person.person_surname }},
+	{{ person.person_firstname }}
+	{% if person.person_middlename %}{{ person.person_middlename }}{% endif %}
+	{% if person.person_extension %}{{ person.person_extension }}{% endif %}
+	({{ person.person_id }})
+<br>
+<form target="_blank" action="{% url 'submit_certificate' person.person_id %}" method="post">
+{% csrf_token %}
+	<label for="purpose">Purpose of Certification:</label>
+	<select id="purpose" name="purpose" onclick="checkIfOthers();">
+		<option value="meralco">Meralco Application</option>
+		<option value="manilawater">Manila Water Application</option>
+		<option value="residency">Proof of Residency</option>
+		<option value="membership">Proof of Membership</option>
+		<option value="others">Others</option>
+	</select>
+	<input type="hidden" id="other-purpose" name="other-purpose" placeholder="Specify purpose">
+	<br>
+	<label for="issuedate">Issued on:</label>
+	<input type="date" id="issuedate" name="issuedate">
+	<br>
+	<!-- Hidden values -->
+		<input type="hidden" name="first_name" value="{{ person.person_firstname }}">
+		<input type="hidden" name="last_name" value="{{ person.person_surname }}">
+		<input type="hidden" name="street_number" value="{{ person.person_street_no }}">
+		<input type="hidden" name="status" value="{{ person.person_status }}">
+	<!-- Hidden optional values -->
+		<input type="hidden" name="middlename" value="{% if person.person_middlename %}{{ person.person_middlename }}{% endif %}">
+		<input type="hidden" name="extension" value="{% if person.person_extension %}{{ person.person_extension }}{% endif %}">
+		<input type="hidden" name="house_number" value="{% if person.person_house_no %}{{ person.person_house_no }}{% endif %}">
+	<input type="submit" value="Generate Certificate">
+</form>
+<!-- Back Button -->
+<a href="{% url 'details' person.person_id %}"><button>Back</button></a>
+<script>
+	let issue_date_obj = document.getElementById("issuedate");
+	let dateObj = new Date();
+	
+	issue_date_obj.defaultValue = dateObj.getFullYear() + "-" + (dateObj.getMonth() < 9 ? "0" : "") + (dateObj.getMonth()+1) + "-" + (dateObj.getDate() < 10 ? "0" : "") + dateObj.getDate();
+	
+	function checkIfOthers()
+	{
+		let purpose = document.getElementById("purpose").value;
+		let textbox = document.getElementById("other-purpose");
+		if (purpose == "others")
+		{
+			textbox.type = "text";
+		}
+		else
+		{
+			textbox.type = "hidden";
+		}
+	}
+</script>
+
+{% endblock %}

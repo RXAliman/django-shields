@@ -1,0 +1,85 @@
+body {
+    font-family: Arial, sans-serif;
+    background-image: url(BGMain.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+  .login-box {
+    width: 300px;
+    margin: 100px auto;
+    padding: 20px;
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    background-color: rgba(255, 255, 255, 0.06);
+    border: 2px solid rgba(255, 255, 255, 0.06);
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.678);
+  }
+  .login-box h2 {
+    text-align: center;
+  }
+  .login-box #sena-logo {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 150px;
+	height: auto;
+  }
+  .box {
+    width: calc(100% - px);
+    margin-bottom: 15px;
+    border: 1px solid #ffffff;
+    border-radius: 3px;
+    background-color: #fff;
+    box-shadow: rgba(255, 255, 255, 0.822);
+  }
+  .login-box input[type="text"],
+  .login-box input[type="password"] {
+    width: calc(90% - 20px);
+    padding: 10px;
+    outline: 0px;
+    border: 0px;
+  }
+  .login-box input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+  }
+  .login-box input[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  #icon {
+    color: #999;
+    cursor: pointer;
+  }
+  #icon:hover {
+    color: #0a0a0a;
+
+  }
+  .login-box i{
+    position: relative;
+    transform: translateY(12%);
+  }
+  #error-messages {
+	  color: white;
+	  background-color: red;
+	  padding: 10px;
+	  text-align: center;
+  }
+  #error-messages button {
+	  background-color: #fff;
+      color: blue;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+  }
+  #error-messages button:hover {
+	  background-color: #ddd;
+  }

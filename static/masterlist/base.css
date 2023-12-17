@@ -1,0 +1,72 @@
+.site-header {
+    background-color: blue;
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    height: 80px;
+	width: auto;
+}
+
+.header-text {
+    flex-grow: 1;
+    margin: 0 20px;
+}
+
+.association-name {
+	margin: 0;
+	font-family: "Book Antiqua", Arial;
+	font-weight: bold;
+	font-size: 1.75em;
+}
+
+.address {
+    margin: 0;
+	font-family: Arial;
+	font-size: 1em;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+}
+
+.logout-button,
+.admin-button {
+    background-color: #fff;
+    color: blue;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Style hover and focus states for buttons if desired */
+.logout-button:hover,
+.logout-button:focus,
+.admin-button:hover,
+.admin-button:focus {
+    background-color: #ddd;
+}
+
+.message {
+    padding: 8px 12px;
+    color: #fff;
+	font-family: Arial;
+}
+
+.info {
+    background-color: #3498db;
+}
+
+.success {
+    background-color: green;
+}
+
+.error {
+    background-color: red;
+}

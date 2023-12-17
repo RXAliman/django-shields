@@ -40,6 +40,7 @@ Status: {{ person.person_status }}
 <a href="{% url 'view_masterlist' %}"><button>Back</button></a>
 <a href="{% url 'edit' person.person_id %}"><button>Edit</button></a>
 <button onclick="confirmDelete()">Delete</button>
+<a href="{% url 'generate' person.person_id %}"><button>Generate Certificate</button></a>
 <br>
 <table id="history-table">
 	<thead>History</thead>
@@ -47,12 +48,14 @@ Status: {{ person.person_status }}
 		<th>Timestamp</th>
 		<th>Short Description</th>
 		<th>History ID</th>
+		<th>Done By</th>
 	</tr>
-	{% for entry in person.history_set.all %}
+	{% for entry in history %}
 	<tr>
-		<td>{{ entry.history_timestamp }}</td>
+		<td><a href="{% url 'history_details' entry.history_id %}">{{ entry.history_timestamp }}</a></td>
 		<td>{{ entry.history_short_desc }}</td>
 		<td>{{ entry.history_id }}</td>
+		<td>{{ entry.history_done_by }}</td>
 	</tr>
 	{% endfor %}
 </table>

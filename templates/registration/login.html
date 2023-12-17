@@ -1,33 +1,35 @@
 {% extends "base.html" %}
 
-{% block title %}Login{% endblock %}
+{% load static %}
+
+{% block title %}Log-in{% endblock %}
 
 {% block content %}
-<h2>Log In</h2>
-{% if form.errors %}
-	{% for error in form.errors.values %}
-		{{ error }}
-	{% endfor %}
-{% endif %}
-<form method="post">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" href="{% static 'masterlist/Login.css' %}">
+<div class="login-box">
+	<img id="sena-logo" src="{% static 'masterlist/logo.png' %}">
+	<h2>SHIELDS Log-in</h2>
+	{% if form.errors %}
+	<div id="error-messages">
+		{% for field, errors in form.errors.items %}
+			{% for error in errors %}
+				{{ error }}
+			{% endfor %}
+		{% endfor %}
+	</div>
+	{% endif %}
+	<form method="post">
 	{% csrf_token %}
-	<p>
-		<label for="id_username">Username:</label>
-		<input type="text" name="username" maxlength="150" id="id_username" autofocus required>
-	</p>
-	<p>
-		<label for="id_password">Password:</label>
-		<input type="password" name="password" id="id_password" required>
-		<label for="id_showpassword">Show Password</label>
-		<input type="checkbox" onclick="togglePassVisibility()" id="id_togglePassVisibility">
-	</p>
-	<button type="submit">Log In</button>
-</form>
-<script>
-	function togglePassVisibility()
-	{
-		var passField = document.getElementById("id_password");
-		passField.type = (document.getElementById("id_togglePassVisibility").checked ? "text" : "password");
-	}
-</script>
+		<div class="box">
+			<input type="text" name="username" placeholder="Username" value="{{ form.username.value|default_if_none:'' }}" {% if not form.username.value %}{{ 'autofocus' }}{% endif %} required >
+		</div>
+		<div class="box">
+			<input id="password" type="password" name="password" placeholder="Password" required {% if form.username.value %}{{ 'autofocus' }}{% endif %}>
+			<i id="icon" class="fas fa-eye-slash" onclick="toggleEye()"></i>
+		</div>
+		<input type="submit" value="Login">
+	</form>
+</div>
+<script src="{% static 'masterlist/Login.js' %}"></script>
 {% endblock %}

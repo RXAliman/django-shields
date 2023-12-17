@@ -6,17 +6,29 @@
 
 {% block content %}
 
-<link rel="stylesheet" href="{% static 'masterlist/index.css' %}">
+<link rel="stylesheet" href="{% static 'masterlist/Homepage.css' %}">
+<link rel="stylesheet" href="{% static 'masterlist/Homepage2.css' %}">
+<script src="{% static 'masterlist/Homepage.js' %}" defer></script>
 
-<b>SHIELDS</b><br>
-SENA Homeowner's Information Extractor and Local Database System<br>
-Salamat Extension Neighborhood Association<br>
-<a href="{% url 'register' %}"><button>Register</button></a>
-<a href="{% url 'view_masterlist' %}"><button>View Masterlist</button></a>
-<a href="{% url 'view_history' %}"><button>View History</button></a>
+<div class="topHomepage">
+	<img src="{% static 'masterlist/Logo.png' %}" id="logo1">
+	<h1 id="font1">SHIELDS</h1>
+	<h4 id="font2">SENA Homeowner's Information Extractor and Local Database System</h4>
+	<h5 id="font3">Salamat Extension Neighborhood Association</h5>
+</div>
+
+<nav>
+	<ul>
+		<li><a href="{% url 'register' %}">Register</a></li>
+		<li><a href="{% url 'view_masterlist' %}">View Masterlist</a></li>
+		<li><a href="{% url 'view_history' %}">View History</a></li>
+	</ul>
+</nav>
+
 <form action="{% url 'search_results' %}" method="POST">
 {% csrf_token %}
-	<input type="search" name="search" placeholder="Search" required>
+<div class="search-wrapper">
+	<input type="search" name="search" placeholder="Search" id="search" required>
 	<input type="submit" value="Search">
 	<select id="search-filter" name="search-filter">
 		<option value="by-name">Name</option>
@@ -25,5 +37,25 @@ Salamat Extension Neighborhood Association<br>
 		<option value="by-house-no">House Number</option>
 		<option value="by-status">Status</option>
 	</select>
+</div>
 </form>
+
+<!-- <b>SHIELDS</b><br> -->
+<!-- SENA Homeowner's Information Extractor and Local Database System<br> -->
+<!-- Salamat Extension Neighborhood Association<br> -->
+<!-- <a href="{% url 'register' %}"><button>Register</button></a> -->
+<!-- <a href="{% url 'view_masterlist' %}"><button>View Masterlist</button></a> -->
+<!-- <a href="{% url 'view_history' %}"><button>View History</button></a> -->
+<!-- <form action="{% url 'search_results' %}" method="POST"> -->
+<!-- {% csrf_token %} -->
+	<!-- <input type="search" name="search" placeholder="Search" required> -->
+	<!-- <input type="submit" value="Search"> -->
+	<!-- <select id="search-filter" name="search-filter"> -->
+		<!-- <option value="by-name">Name</option> -->
+		<!-- <option value="by-id">SENA ID</option> -->
+		<!-- <option value="by-street-no">Street Number</option> -->
+		<!-- <option value="by-house-no">House Number</option> -->
+		<!-- <option value="by-status">Status</option> -->
+	<!-- </select> -->
+<!-- </form> -->
 {% endblock %}

@@ -24,4 +24,12 @@ urlpatterns = [
 	path('search_for_all/', views.view_masterlist, name='view_masterlist'),
 	# View History Page
 	path('history/', views.view_history, name='view_history'),
+	# Search History Results
+	path('history/search/', views.search_history, name='search_history'),
+	# History Details Page
+	path('history/<history_id>', views.history_details_page, name='history_details'),
+	# Generate Certificate Page
+	path('<person_id>/generate', views.generate_certificate_page, name='generate'),
+	# Submit Action for Generate Certificate Page
+	path('<person_id>/generate/processed', views.submit_certificate, name='submit_certificate'),
 ]

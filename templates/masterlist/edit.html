@@ -19,8 +19,8 @@
 	<label for="extension">Extension:</label>
 		<select id="extension" name="extension">
 			<option value="" {% if person.person_extension == '' %}{{ 'selected' }}{% endif %}></option>
-			<option value="Jr" {% if person.person_extension == 'Jr' %}{{ 'selected' }}{% endif %}>Jr</option>
-			<option value="Sr" {% if person.person_extension == 'Sr' %}{{ 'selected' }}{% endif %}>Sr</option>
+			<option value="Jr." {% if person.person_extension == 'Jr.' %}{{ 'selected' }}{% endif %}>Jr</option>
+			<option value="Sr." {% if person.person_extension == 'Sr.' %}{{ 'selected' }}{% endif %}>Sr</option>
 			<option value="I" {% if person.person_extension == 'I' %}{{ 'selected' }}{% endif %}>I</option>
 			<option value="II" {% if person.person_extension == 'II' %}{{ 'selected' }}{% endif %}>II</option>
 			<option value="III" {% if person.person_extension == 'III' %}{{ 'selected' }}{% endif %}>III</option>
@@ -49,6 +49,6 @@
 	<br>
 	<input type="submit" value="Apply Changes">
 </form>
-<button onclick="history.back()">Back</button>
+<a href="{% url 'details' person.person_id %}"><button>Back</button></a>
 
 {% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" href="{% static 'masterlist/Login.css' %}">
+<div id="loginBox" class="login-box">
+	<img id="sena-logo" src="{% static 'masterlist/logo.png' %}">
+	<h2>SENA Log-in</h2>
+	<div id="error-messages">
+		<p>You're locked out because of multiple failed log-in attempts.</p>
+		<p>Kindly wait for <b><span id="cooloff_time"></span></b> and do not refresh this screen.</p>
+		<p>A button will appear for you to click on to redirect you to the Log-in page after the cooldown has finished.</p>
+	</div>
+</div>
+
+<script>
+	let cooloffTimeText = document.getElementById("cooloff_time");
+	let cooloffTime = parseInt("{{ cooloff_timedelta }}".split(":")[2]);
+	
+	cooloffTimeText.innerHTML = cooloffTime + " seconds";
+	
+	let cooloffTimer = setInterval(displayCooloffTime, 1000);
+	
+	function displayCooloffTime()
+	{
+		cooloffTime--;
+		cooloffTimeText.innerHTML = cooloffTime + " second" + (cooloffTime > 1 ? "s" : "");
+		if (cooloffTime == 0)
+		{
+			window.clearInterval(cooloffTimer);
+			addToLoginScreenButton();
+		}
+	}
+	
+	function addToLoginScreenButton()
+	{
+		let loginBox = document.getElementById("error-messages");
+		let loginButton = document.createElement("button");
+		
+		loginButton.innerHTML = "Log-in";
+		loginButton.setAttribute('onclick','gotoLoginPage();');
+		
+		loginBox.appendChild(loginButton);
+		loginBox.appendChild(document.createElement("p"));
+	}
+	
+	function gotoLoginPage() { window.location = "{% url 'login' %}"; }
+</script>
+{% endblock %}

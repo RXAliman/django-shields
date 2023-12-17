@@ -1,0 +1,74 @@
+header {
+	background-color: blue;
+	color: white;
+	padding: 20px;
+	text-align: center;
+	font-size: 12px;
+	font-family: Arial;
+}
+
+#SENA {
+	font-family: "Book Antiqua";
+	font-weight: bold;
+	font-size: 22px;
+	padding-bottom: 5px;
+}
+
+article {
+	margin: 0.5in;
+	position: fixed;
+	top: 3.2in;
+}
+
+#purpose {
+	text-align: center;
+	font-weight: bold;
+	font-size: 22px;
+}
+
+article p {
+	text-indent: 1in;
+	text-align: justify;
+	text-justify: inter-word;
+	line-height: 25px;
+}
+
+span {
+	font-weight: bold;
+}
+
+#signatory {
+	text-align: center;
+	position: fixed;
+	bottom: 215px;
+	right: 0.6in;
+	font-size: 18px;
+	width: 180px;
+	border-top: 1px solid black;
+	padding: 2px;
+}
+
+#document-info {
+	position: fixed;
+	bottom: 150px;
+	left: 0.5in;
+	font-size: 18px;
+	width: 300px;
+}
+
+#president {
+	font-size: 10px;
+	margin: 0px;
+}
+
+footer {
+	background-color: black;
+	color: white;
+	padding: 5px;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	font-size: 10px;
+	font-family: Arial;
+	text-align: center;
+}

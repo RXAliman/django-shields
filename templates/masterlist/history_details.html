@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}History Details{% endblock %}
+
+{% block content %}
+
+<h1>History Details</h1>
+<p>History ID: {{ history_id }}</p>
+<p>Timestamp: {{ timestamp }}</p>
+<p>Short Description: {{ short_description }}</p>
+<p>
+	Long Description<br>
+	{{ long_description|linebreaks }}
+</p>
+<p>Done by: {{ done_by }}</p>
+
+<button onclick="history.back();">Back</button>
+
+{% endblock %}

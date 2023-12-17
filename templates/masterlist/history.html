@@ -5,12 +5,13 @@
 {% block content %}
 
 <a href="{% url 'index' %}"><button>Menu</button></a>
-<form action="" method="POST">
+<form action="{% url 'search_history' %}" method="POST">
 {% csrf_token %}
-	<input type="search" name="search" value="" placeholder="Search History" required>
+	<input type="search" name="history-search" value="{{ search_content }}" placeholder="Search History" required>
 	<input type="submit" value="Search">
-	<select id="" name="">
-		<option value=""></option>
+	<select id="search-filter" name="history-search-filter">
+		<option value="by-description" {% if search_filter == 'by-description' %}{{ 'selected' }}{% endif %}>Description</option>
+		<option value="by-id" {% if search_filter == 'by-id' %}{{ 'selected' }}{% endif %}>History ID</option>
 	</select>
 </form>
 {% if history %}
@@ -19,18 +20,14 @@
 		<th>Timestamp</th>
 		<th>Short Description</th>
 		<th>History ID</th>
+		<th>Done By</th>
 	</tr>
 	{% for entry in history %}
 	<tr>
-		<td>
-			<a href="">{{ entry.history_timestamp }}</a>
-		</td>
-		<td>
-			{{ entry.history_short_desc }}
-		</td>
-		<td>
-			{{ entry.history_id }}
-		</td>
+		<td><a href="{% url 'history_details' entry.history_id %}">{{ entry.history_timestamp }}</a></td>
+		<td>{{ entry.history_short_desc }}</td>
+		<td>{{ entry.history_id }}</td>
+		<td>{{ entry.history_done_by }}</td>
 	</tr>
 	{% endfor %}
 </table>

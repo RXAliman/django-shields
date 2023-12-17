@@ -1,0 +1,100 @@
+{% load static %}
+
+{% block title %}{{ person.person_id }}{% endblock %}
+
+<link rel="stylesheet" href="{% static 'masterlist/cert_style.css' %}">
+
+<header>
+	<div id="SENA">SALAMAT EXTENSION NEIGHBORHOOD ASSOCIATION</div>
+	Salamat Extension, Ampid 2, San Mateo, Rizal 1850 | alemanlito858+SENA@gmail.com | (+639) 09167789901
+</header>
+<article>
+	<img src="{% static 'masterlist/sena_logo.png' %}">
+	<div id="purpose"></div><br>
+	<p>This is to certify that <span id="recipient"></span> is a bona fide resident <span id="if_member_text" style="font-weight: 1;"></span>of Salamat Extension Neighborhood Association living in <span id="address"></span> located at Ampid II, San Mateo, Rizal.</p>
+	<p>This certify further that the above name is presently/still occupying its residential house in our area of responsibility; what legal purpose it may serve.</p>
+	<p>Issued upon this request, this <span id="nth"></span> day of <span id="month"></span> - <span id="year"></span> at Salamat Extension, Ampid II, San Mateo, Rizal.</p>
+	<div id="signatory">
+		Lolito Aleman
+		<div id="president">President</div>
+	</div>
+	<div id="document-info">
+		History ID: {{ history_id }}
+	</div>
+</article>
+<footer>
+	This is a computer-generated document. Please contact the SENA Office if there's any error in the document.<br>
+	© SENA Office <span id="year_footer"></span>
+</footer>
+<style>
+	body {
+		background: #c7daff url("{% static 'masterlist/background.png' %}");
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		margin: 0px;
+		font-family: "Book Antiqua", Arial, "Times New Roman";
+	}
+	
+	img[src="{% static 'masterlist/sena_logo.png' %}"] {
+		height: 150px;
+		position: fixed;
+		right: 60px;
+		top: 143px;
+	}
+</style>
+<script>
+	document.getElementById("purpose").innerHTML = "{{ purpose }}";
+	
+	document.getElementById("recipient").innerHTML = "{{ first_name }} {% if middlename %}{{ middlename }} {% endif %}{{ last_name }} {{ extension }}";
+	
+	let status = "{{ status }}";
+	if (status == "Member")
+		document.getElementById("if_member_text").innerHTML = "and member ";
+	
+	let address = "{% if house_number %}#{{ house_number }}{% endif %}{% if street_number == '1' %} 1<sup style='font-size: 8.0pt;'>st</sup> STREET{% elif street_number == '2' %} 2<sup style='font-size: 8.0pt;'>nd</sup> STREET{% elif street_number == '3' %} 3<sup style='font-size: 8.0pt;'>rd</sup> STREET{% elif street_number == '4' %} 4<sup style='font-size: 8.0pt;'>th</sup> STREET{% endif %} SALAMAT EXTENSION";
+	document.getElementById("address").innerHTML = address;
+	
+	function generateDateObject(string, enableOrdinal = false) {
+		var dateObj = {
+			day: parseInt(string.slice(8-10)),
+			year: string.slice(0,4),
+			month: string.slice(5,7),
+		};
+		
+		if (enableOrdinal) {
+			switch (dateObj.day) {
+				case 1: case 21: case 31: dateObj.day += "<sup style='font-size: 8.0pt;'>st</sup>"; break;
+				case 2: case 22: dateObj.day += "<sup style='font-size: 8.0pt;'>nd</sup>"; break;
+				case 3: case 23: dateObj.day += "<sup style='font-size: 8.0pt;'>rd</sup>"; break;
+				default: dateObj.day += "<sup style='font-size: 8.0pt;'>th</sup>";
+			}
+		}
+		
+		switch (dateObj.month) {
+			case "01": dateObj.month = "January"; break;
+			case "02": dateObj.month = "February"; break;
+			case "03": dateObj.month = "March"; break;
+			case "04": dateObj.month = "April"; break;
+			case "05": dateObj.month = "May"; break;
+			case "06": dateObj.month = "June"; break;
+			case "07": dateObj.month = "July"; break;
+			case "08": dateObj.month = "August"; break;
+			case "09": dateObj.month = "September"; break;
+			case "10": dateObj.month = "October"; break;
+			case "11": dateObj.month = "November"; break;
+			case "12": dateObj.month = "December";
+		}
+		
+		return dateObj;
+	}
+	let date = generateDateObject("{{ date_issued }}",true);
+	document.getElementById("nth").innerHTML = date.day;
+	document.getElementById("month").innerHTML = date.month.toUpperCase();
+	document.getElementById("year").innerHTML = date.year;
+	document.getElementById("year_footer").innerHTML = date.year;
+	document.getElementById("year_footer").style = "font-weight: normal;";
+	
+	window.print();
+	setTimeout(function () { window.close(); }, 1000);
+</script>
